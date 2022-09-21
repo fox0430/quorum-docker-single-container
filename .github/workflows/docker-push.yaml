@@ -1,15 +1,9 @@
 name: docker-push
 
 on:
-  push:
+  create:
     tags:
       - '*'
-    paths:
-      - '.github/workflows/docker-psuh.yaml'
-      - './eng/**'
-      - './eng/.dockerignore'
-    branches:
-      - 'master'
 
 jobs:
   docker-build:
@@ -17,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      TAG: latest
+      TAG: ""
 
     steps:
       - name: Check Out Repo
@@ -33,11 +27,19 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Build and push (latest)
+        id: docker_build_and_push
+        uses: docker/build-push-action@v3
+        with:
+          context: ./eng
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/quorum:latest
+
       - name: Set image tag
         if: startsWith( github.ref, 'refs/tags/' )
         run: echo "${REF##*/}" >> $TAG
 
-      - name: Build and push
+      - name: Build and push (release)
         id: docker_build_and_push
         uses: docker/build-push-action@v3
         with:
