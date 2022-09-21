@@ -28,7 +28,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build and push (latest)
-        id: docker_build_and_push
+        id: docker_build_and_push_latest
         uses: docker/build-push-action@v3
         with:
           context: ./eng
@@ -40,7 +40,7 @@ jobs:
         run: echo "${REF##*/}" >> $TAG
 
       - name: Build and push (release)
-        id: docker_build_and_push
+        id: docker_build_and_push_release
         uses: docker/build-push-action@v3
         with:
           context: ./eng
