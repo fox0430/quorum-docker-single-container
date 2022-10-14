@@ -1,4 +1,4 @@
-FROM quorumengineering/quorum:22.7.1
+FROM quorumengineering/quorum:22.7.2
 
 WORKDIR /qdata/dd
 
