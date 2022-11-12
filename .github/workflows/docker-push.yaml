@@ -1,7 +1,10 @@
 name: docker-push
 
 on:
-  create:
+  push:
+    paths:
+      - '.github/workflows/docker-push.yaml'
+      - './eng/**'
     tags:
       - '*'
 
