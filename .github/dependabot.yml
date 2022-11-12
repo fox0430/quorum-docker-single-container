@@ -1,0 +1,8 @@
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directory: "/eng"
+    schedule:
+      interval: "daily"
+      time: "00:00"
+    target-branch: "main"
